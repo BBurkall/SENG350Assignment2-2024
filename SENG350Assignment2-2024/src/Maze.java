@@ -51,8 +51,7 @@ public class Maze {
 
 				}
 			}
-			input.close(); 
-			printMaze(); //after being read, the maze is printed out TODO this can be commented out but it was useful for troubleshooting
+			input.close();
 		}
 
 		catch (IOException e) {
@@ -70,15 +69,6 @@ public class Maze {
 		//first, the current location is set to the starting location
 		currentLocationX = startLocationX;
 		currentLocationY = startLocationY;
-
-		//information is printed for user and testing information
-		System.out.println("currentlocationx = " + currentLocationX);
-		System.out.println("currentlocationy = " + currentLocationY);
-		System.out.println("symbol at maze current location: " + maze[currentLocationX][currentLocationY]);
-
-		//the stack that stores branches stores the current location
-//		branchStack.push(currentLocationY);
-//		branchStack.push(currentLocationX);
 		
 		//possible moves are all set to true 
 		goSouthPossible = true;
@@ -101,7 +91,6 @@ public class Maze {
 			if (currentLocationX == endLocationX && currentLocationY == endLocationY) {
 				solved = true;
 				System.out.println("Maze solved in " + moveCount + " moves");
-				System.out.println("Current location: " + endLocationX + ", " + endLocationY);
 				System.exit(0); // after solving, the program ends
 			}
 
@@ -121,16 +110,13 @@ public class Maze {
 				try {
 					if (maze[currentLocationX + 1][currentLocationY] == 0) {
 						goSouthPossible = false;
-						System.out.println("Go south False");
 					} else {
 						goSouthPossible = true;
-						System.out.println("Go south True");
 						count++;
 
 					}
 				} catch (Exception e) {
 					goSouthPossible = false;
-					System.out.println("Cannot go south");
 				}
 			}
 
@@ -138,16 +124,13 @@ public class Maze {
 				try {
 					if (maze[currentLocationX - 1][currentLocationY] == 0) {
 						goNorthPossible = false;
-						System.out.println("Go north False");
 					} else {
 						goNorthPossible = true;
-						System.out.println("Go north True");
 						count++;
 
 					}
 				} catch (Exception e) {
 					goNorthPossible = false;
-					System.out.println("Cannot go north");
 				}
 			}
 			
@@ -156,16 +139,13 @@ public class Maze {
 
 					if (maze[currentLocationX][currentLocationY + 1] == 0) {
 						goEastPossible = false;
-						System.out.println("Go east False");
 					} else {
 						goEastPossible = true;
-						System.out.println("Go east True");
 						count++;
 
 					}
 				} catch (Exception e) {
 					goEastPossible = false;
-					System.out.println("Cannot go east");
 				}
 
 			}
@@ -174,22 +154,15 @@ public class Maze {
 				try {
 					if (maze[currentLocationX][currentLocationY - 1] == 0) {
 						goWestPossible = false;
-						System.out.println("Go west False");
 					} else {
 						goWestPossible = true;
-						System.out.println("Go west True");
 						count++;
 
 					}
 				} catch (Exception e) {
 					goWestPossible = false;
-					System.out.println("Cannot go west");
 				}
 			}
-			
-			// After checking which next step is possible goes to check if there is just 1,
-			// 2 or zero options, and prints that number
-			System.out.println("ways to go: " + count);
 			
 			// If there is only one path to follow. Updates location to that one
 			if (count == 1) {
@@ -222,30 +195,25 @@ public class Maze {
 				if (!branchStack.isEmpty()) {
 
 					//additional if statements are here to make sure we don't get an error by trying to go outside the map
-					//DEV NOTE removing this section did not stop the loop in the default maze output
 					if (currentLocationX < sizeMazeX-1) {
 					if (maze[currentLocationX + 1][currentLocationY] == 0) {
 						goSouthPossible = false;
-						System.out.println("Go south False");
 					}else if (maze[currentLocationX - 1][currentLocationY] == 0) {
 						goNorthPossible = false;
-						System.out.println("Go north False");
 					}
 					}
 					
 					if (currentLocationY < sizeMazeY-1) {
 					if (maze[currentLocationX][currentLocationY + 1] == 0) {
 						goEastPossible = false;
-						System.out.println("Go east False");
 					} else if (maze[currentLocationX][currentLocationY - 1] == 0) {
 						goEastPossible = true;
-						System.out.println("Go west False");
 					}
 					}
 					
 					currentLocationX = branchStack.pop();
 					currentLocationY = branchStack.pop();
-					System.out.println("Popping from branch stack and going back");
+					System.out.println("Dead end. Going back.");
 
 				} else {
 					System.out.println("Not possible");
@@ -259,7 +227,6 @@ public class Maze {
 
 				branchStack.push(currentLocationY);
 				branchStack.push(currentLocationX);
-				System.out.println("pushing current location to branch stack");
 
 				if (goSouthPossible != false) {
 					currentLocationX = currentLocationX + 1;
@@ -284,13 +251,12 @@ public class Maze {
 	public void printMaze() {
 		for (int k = 0; k < maze.length; k++) {
 			for (int l = 0; l < maze.length; l++) {
-				System.out.print(maze[k][l]);
+				System.out.print(maze[k][l] + " ");
 			}
 			System.out.println();
 		}
 	}
 
-	// Override for toString method works only outside the class
 	@Override
 	public String toString() {
 		String line = "";
