@@ -55,7 +55,7 @@ public class Maze {
 		}
 
 		catch (IOException e) {
-			System.out.println("Error reading file");
+			System.out.println("Error reading file.");
 		}
 
 	}
@@ -95,7 +95,7 @@ public class Maze {
 			}
 
 			//The system will print out its current location
-			System.out.println("Current Location " + "X: " + currentLocationX + " Y: " + currentLocationY);
+			System.out.println("Current Location = " + "X: " + currentLocationX + ", Y: " + currentLocationY);
 			count = 0; //move option counter is reset
 			moveCount++; //number of moves made increases
 			//the stack that holds the correct path is updated with the current coordinates (
@@ -104,8 +104,7 @@ public class Maze {
 			printMaze();
 
 			//because each of the goDirectionPossible variables are set to false at the beginning of every loop, these will always trigger
-			//for some reason if this if loop wasnt here it made a loop in the code
-			//
+			// the try/catch is necessary for traversing the edges of the maze
 			if (goSouthPossible == false) {
 				try {
 					if (maze[currentLocationX + 1][currentLocationY] == 0) {
@@ -164,7 +163,7 @@ public class Maze {
 				}
 			}
 			
-			// If there is only one path to follow. Updates location to that one
+			// If there is only one path to follow, that is where the path will go.
 			if (count == 1) {
 
 				// Only one way to go
@@ -186,6 +185,7 @@ public class Maze {
 				}
 				
 			}
+			
 			//if there are no options to move from the current location:
 			//the code will try to go back to the last branch
 			//if there isn't one, the maze cannot be solved and the program ends
@@ -216,7 +216,7 @@ public class Maze {
 					System.out.println("Dead end. Going back.");
 
 				} else {
-					System.out.println("Not possible");
+					System.out.println("This maze is not possible to solve.");
 					System.exit(0);
 				}
 
@@ -247,7 +247,7 @@ public class Maze {
 		maze[currentLocationX][currentLocationY] = 0;
 	}
 
-	// Prints maze in console inside the class
+	// Prints maze in console
 	public void printMaze() {
 		for (int k = 0; k < maze.length; k++) {
 			for (int l = 0; l < maze.length; l++) {
