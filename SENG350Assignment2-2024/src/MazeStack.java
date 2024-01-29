@@ -34,13 +34,6 @@ public class MazeStack {
 		return false;
 	}
 
-	@Override
-	public String toString() {
-		String result = "";
-		result += arrayList;
-		return result;
-	}
-
 	public static void main(String[] args) {
 
 	}

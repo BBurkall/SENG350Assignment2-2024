@@ -25,7 +25,7 @@ public class Maze {
 
 	}
 
-	public void readFromFile() {
+	public void readMazeFile() {
 		try {
 			//Maze is put to a file reader in order to be read
 			FileInputStream fileReader = new FileInputStream("maze.txt");
@@ -255,20 +255,6 @@ public class Maze {
 			}
 			System.out.println();
 		}
-	}
-
-	@Override
-	public String toString() {
-		String line = "";
-		for (int row = 0; row < maze.length; row++) {
-			for (int col = 0; col < maze[row].length; col++) {
-				line += " " + maze[row][col];
-				if (col == 9) {
-					line += "\n";
-				}
-			}
-		}
-		return line;
 	}
 
 }
